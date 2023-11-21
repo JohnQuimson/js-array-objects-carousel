@@ -1,102 +1,12 @@
 'use strict';
 
-const arrayObjectCarousel = [
-  {
-    foto: '01.jpg',
-    titolo: 'Titolo 1',
-    descrizione:
-      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias quas nihil, eveniet omnis illo repudiandae incidunt consequuntur aliquam doloremque, beatae nostrum cumque facere natus perspiciatis architecto odio consequatur ut reprehenderit.',
-  },
-  {
-    foto: '02.jpg',
-    titolo: 'Titolo 2',
-    descrizione:
-      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias quas nihil, eveniet omnis illo repudiandae incidunt consequuntur aliquam doloremque, beatae nostrum cumque facere natus perspiciatis architecto odio consequatur ut reprehenderit.',
-  },
-  {
-    foto: '03.jpg',
-    titolo: 'Titolo 3',
-    descrizione:
-      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias quas nihil, eveniet omnis illo repudiandae incidunt consequuntur aliquam doloremque, beatae nostrum cumque facere natus perspiciatis architecto odio consequatur ut reprehenderit.',
-  },
-  {
-    foto: '04.jpg',
-    titolo: 'Titolo 4',
-    descrizione:
-      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias quas nihil, eveniet omnis illo repudiandae incidunt consequuntur aliquam doloremque, beatae nostrum cumque facere natus perspiciatis architecto odio consequatur ut reprehenderit.',
-  },
-  {
-    foto: '05.jpg',
-    titolo: 'Titolo 5',
-    descrizione:
-      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias quas nihil, eveniet omnis illo repudiandae incidunt consequuntur aliquam doloremque, beatae nostrum cumque facere natus perspiciatis architecto odio consequatur ut reprehenderit.',
-  },
-];
-let slideAttivaIndex = 0;
-const next = document.querySelector('.next');
-const prev = document.querySelector('.prev');
-
-// STAMPA IN CONSOLE
-const arrayLength = arrayObjectCarousel.length;
-
-for (let i = 0; i < arrayLength; i++) {
-  const singleElement = arrayObjectCarousel[i];
-
-  console.log(`Element ${i + 1}`);
-
-  for (let key in singleElement) {
-    console.log(`${key}: ${singleElement[key]}`);
-  }
-
-  if (!(i === arrayLength - 1)) {
-    console.log(``);
-  }
-}
-
-//estrapolo ul
-const raccoglitore = document.querySelector('.raccoglitore');
-
-/*
-clone element
-*/
-
-const templateCarousel = document.getElementById('carousel-template');
-
-for (let i = 0; i < arrayLength; i++) {
-  const singleElement = arrayObjectCarousel[i];
-
-  const liElement = templateCarousel.content.cloneNode(true);
-
-  liElement.querySelector('.item .photo img').src = `img/${singleElement.foto}`;
-  liElement.querySelector('.item .photo img').alt = singleElement.titolo;
-
-  liElement.querySelector('.item .name').innerText = singleElement.titolo;
-
-  liElement.querySelector('.item .role').innerText = singleElement.descrizione;
-
-  //assegno la classe active all'elem con indice 0
-  if (i === slideAttivaIndex) {
-    liElement.querySelector('.item').classList.add('active');
-  }
-
-  raccoglitore.append(liElement);
-}
-
-const domSlides = document.querySelectorAll('.item');
-console.log(domSlides);
-
-/*
--------------------------
-Azioni al click del pulsante next
--------------------------
- */
-next.addEventListener('click', function () {
+function fnNext() {
   //Di default rimuovo la classe active al primo elemento
   domSlides[slideAttivaIndex].classList.remove('active');
   //Di default rimuovo la classe active-thumbnails al primo elemento
-  // domThumbnails[slideAttivaIndex].classList.remove('active-thumbnails');
+  domThumbnails[slideAttivaIndex].classList.remove('active-thumbnails');
   //se il contatore del NodeList è minore del num di elementi dei NodeList, crementa il contatore
-  if (slideAttivaIndex < domSlides.length - 1) {
+  if (slideAttivaIndex < lunghDomSlides) {
     slideAttivaIndex++;
     //se il contatore supera il limite, torna da capo
   } else {
@@ -105,8 +15,206 @@ next.addEventListener('click', function () {
   domSlides[slideAttivaIndex].classList.add('active');
   console.log('next');
   console.log(`Immgine con 'active': domSlides[${slideAttivaIndex}]`);
-  // domThumbnails[slideAttivaIndex].classList.add('active-thumbnails');
+  domThumbnails[slideAttivaIndex].classList.add('active-thumbnails');
   console.log(
     `Immgine con 'active-thumbnails': domThumbnails[${slideAttivaIndex}]`
   );
+}
+
+function fnPrev() {
+  domSlides[slideAttivaIndex].classList.remove('active');
+  domThumbnails[slideAttivaIndex].classList.remove('active-thumbnails');
+
+  if (slideAttivaIndex > 0) {
+    slideAttivaIndex--;
+  } else {
+    slideAttivaIndex = lunghDomSlides;
+  }
+  domSlides[slideAttivaIndex].classList.add('active');
+  console.log('prev');
+  console.log(`Immgine con 'active': domSlides[${slideAttivaIndex}]`);
+
+  domThumbnails[slideAttivaIndex].classList.add('active-thumbnails');
+
+  console.log(
+    `Immgine con 'active-thumbnails': domThumbnails[${slideAttivaIndex}]`
+  );
+}
+
+const arrayObjectCarousel = [
+  {
+    foto: '01.jpg',
+    titolo: 'Model S',
+    descrizione: 'Accelerazione 0-100 km/h: da 2,6 a 3,9 secondi',
+  },
+  {
+    foto: '02.jpg',
+    titolo: 'Model 3',
+    descrizione: 'Accelerazione 0-100 km/h: da 3,3 a 6,1 secondi',
+  },
+  {
+    foto: '03.jpg',
+    titolo: 'Model X',
+    descrizione: 'Accelerazione 0-100 km/h: da 2,6 a 3,9 secondi',
+  },
+  {
+    foto: '04.jpg',
+    titolo: 'Model Y',
+    descrizione: 'Accelerazione 0-100 km/h: da 3,7 a 6,9 secondi',
+  },
+  {
+    foto: '05.jpg',
+    titolo: 'All Models',
+    descrizione:
+      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias quas nihil.',
+  },
+];
+
+// DICHIARAZIONE VARIABILI
+const slider = document.querySelector('.items');
+const contThumbnails = document.querySelector('.items-thumbnails');
+const next = document.querySelector('.next');
+const prev = document.querySelector('.prev');
+const container = document.querySelector('.container');
+const stop = document.querySelector('.stop');
+const play = document.querySelector('.play');
+const reverse = document.querySelector('.reverse');
+
+//dichiaro quale slide[i] deve avere la class 'active'
+let slideAttivaIndex = 0;
+
+//estrapolazione template
+const templatePrinc = document.getElementById('template-princ');
+const templateTN = document.getElementById('template-thumbnails');
+
+/*
+-------------------------
+AGGIUNTA ELEMENTI ALL'HTML
+-------------------------
+ */
+
+//AGGIUNTA DIV CON IMG
+arrayObjectCarousel.forEach((element, index, arr) => {
+  const itemElement = templatePrinc.content.cloneNode(true);
+
+  itemElement.querySelector('img').src = `img/${element.foto}`;
+  itemElement.querySelector('img').alt = `elemento ${index + 1}`;
+  itemElement.querySelector('h3').textContent = element.titolo;
+  itemElement.querySelector('.item div p').textContent = element.descrizione;
+
+  //assegno la classe active all'elem con indice 0
+  if (index === slideAttivaIndex) {
+    itemElement.querySelector('.item').classList.add('active');
+  }
+
+  slider.append(itemElement);
+});
+
+//aggiungo gli elemen img a thumbnails
+arrayObjectCarousel.forEach((element, index, arr) => {
+  const itemThumbnails = templateTN.content.cloneNode(true);
+
+  itemThumbnails.querySelector('img').src = `img/${element.foto}`;
+  itemThumbnails.querySelector('img').alt = `elemento ${index + 1}`;
+
+  //assegno la classe active all'elem con indice 0
+  if (index === slideAttivaIndex) {
+    itemThumbnails
+      .querySelector('.elem-raccolta')
+      .classList.add('active-thumbnails');
+  }
+
+  contThumbnails.append(itemThumbnails);
+});
+
+//prendo in considerazione tutti gli elementi con class 'item', i quali vanno a finire in una specie di 'array'
+const domSlides = document.querySelectorAll('.item');
+let lunghDomSlides = domSlides.length - 1;
+//prendo in considerazione tutti gli elementi con class 'elem-raccolta', i quali vanno a finire in una specie di 'array'
+const domThumbnails = document.querySelectorAll('.elem-raccolta');
+let lunghDomThumbnails = domThumbnails.lenght - 1;
+
+// AZIONI AL CLICK
+next.addEventListener('click', fnNext);
+prev.addEventListener('click', fnPrev);
+
+/* 
+---------------------
+Al Click su un elemento del thumbails, mi mostra quell img
+---------------------
+*/
+//Utilizzo un ciclo for per accedere a tutti gli elementi di domThumbnails, e per ognuno di essi, aggiungo un EventListener 'click'
+for (let i = 0; i < domThumbnails.length; i++) {
+  domThumbnails[i].addEventListener('click', function () {
+    // Rimuovo la classe 'active' e 'active-thumbnails' con indice 0
+    domSlides[slideAttivaIndex].classList.remove('active');
+    domThumbnails[slideAttivaIndex].classList.remove('active-thumbnails');
+
+    // Aggiungo la classe 'active-thumbnails' all'elemento cliccato
+    domThumbnails[i].classList.add('active-thumbnails');
+
+    // Aggiorno il contatore degli indici delle slide attive con il contatore i del ciclo for
+    slideAttivaIndex = i;
+
+    //Aggiungo e rimuovo 'active' agli item del carosello
+    domSlides[slideAttivaIndex].classList.remove('active');
+    domSlides[slideAttivaIndex].classList.add('active');
+
+    //stampe in console.log
+    console.log(`Hai cliccato sull'elemento: thumbnails[${i}]`);
+  });
+}
+
+// AUTOPLAY INIZIALE
+let autoplay = setInterval(autoplayNext, 3_000);
+
+function autoplayNext() {
+  //Di default rimuovo la classe active al primo elemento
+  domSlides[slideAttivaIndex].classList.remove('active');
+  //Di default rimuovo la classe active-thumbnails al primo elemento
+  domThumbnails[slideAttivaIndex].classList.remove('active-thumbnails');
+
+  //se il contatore del NodeList è minore del num di elementi dei NodeList, incrementa il contatore
+  if (slideAttivaIndex < lunghDomSlides) {
+    slideAttivaIndex++;
+
+    //se il contatore supera il limite, torna da capo
+  } else {
+    slideAttivaIndex = 0;
+  }
+
+  domSlides[slideAttivaIndex].classList.add('active');
+
+  console.log(`Immgine attiva: ${slideAttivaIndex + 1}`);
+
+  domThumbnails[slideAttivaIndex].classList.add('active-thumbnails');
+}
+
+let myFnNext;
+let autoplayActive = false;
+play.addEventListener('click', function () {
+  //condizione per non far attivare una seconda volta il setInterval
+  if (!autoplayActive) {
+    myFnNext = setInterval(autoplayNext, 3_000);
+    autoplayActive = true;
+    console.log('Avviato autoplay');
+  } else {
+    console.log('Non puoi cliccare di nuovo!');
+  }
+});
+reverse.addEventListener('click', function () {
+  //condizione per non far attivare una seconda volta il setInterval
+  if (!autoplayActive) {
+    myFnNext = setInterval(fnPrev, 3_000);
+    autoplayActive = true;
+    console.log('Avviato reverse');
+  } else {
+    console.log('Non puoi cliccare di nuovo!');
+  }
+});
+stop.addEventListener('click', function () {
+  console.log('Autoplay STOP');
+  autoplayActive = false;
+  clearInterval(myFnNext);
+  clearInterval(autoplay);
 });
