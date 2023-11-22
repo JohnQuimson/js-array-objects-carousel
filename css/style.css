@@ -16,6 +16,7 @@ body {
 h1 {
   text-align: center;
   margin-top: 3.125rem;
+  font-family: 'Marhey', sans-serif;
 }
 
 .container {
@@ -163,9 +164,14 @@ button.reverse:focus {
   color: #434247;
 }
 
+button:hover {
+  opacity: 0.5;
+}
+
 .stato {
   display: flex;
   justify-content: center;
+  font-family: 'Marhey', sans-serif;
 }
 
 .stato > * {

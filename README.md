@@ -15,3 +15,5 @@ Dato un array di oggetti letterali con:
    - Descrizione
 2. Assegno gli elementi dell array di oggetti a variabili js
 3. Lavoro con eventListener per popolare dinamicamente il carosello
+
+![screenshot](img/screenshot.png)
