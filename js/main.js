@@ -211,17 +211,12 @@ play.addEventListener('click', function () {
   }
 });
 reverse.addEventListener('click', function () {
-  //condizione per non far attivare una seconda volta il setInterval
-  if (!autoplayActive) {
-    myFnNext = setInterval(fnPrev, 3_000);
-    autoplayActive = true;
-    console.log('Avviato reverse');
-    domStato[0].classList.remove('stato-active');
-    domStato[1].classList.remove('stato-active');
-    domStato[2].classList.add('stato-active');
-  } else {
-    console.log('Non puoi cliccare di nuovo!');
-  }
+  clearInterval(myFnNext);
+  myFnNext = setInterval(fnPrev, 3_000);
+  domStato[0].classList.remove('stato-active');
+  domStato[1].classList.remove('stato-active');
+  domStato[2].classList.add('stato-active');
+  console.log('Avviato reverse');
 });
 stop.addEventListener('click', function () {
   domStato[1].classList.remove('stato-active');
@@ -229,6 +224,6 @@ stop.addEventListener('click', function () {
   domStato[0].classList.add('stato-active');
   console.log('Autoplay STOP');
   autoplayActive = false;
-  clearInterval(myFnNext);
+
   clearInterval(autoplay);
 });
