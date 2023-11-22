@@ -121,6 +121,10 @@ h1 {
   cursor: pointer;
 }
 
+.btns-play {
+  margin: -50px 0 50px;
+}
+
 button {
   padding: 10px 20px;
   border-radius: 10px;
@@ -157,4 +161,17 @@ button.play:focus {
 button.reverse:focus {
   background-color: #5a5b64;
   color: #434247;
+}
+
+.stato {
+  display: flex;
+  justify-content: center;
+}
+
+.stato > * {
+  display: none;
+}
+
+.stato-active {
+  display: block;
 }

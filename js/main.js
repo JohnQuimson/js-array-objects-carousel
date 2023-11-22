@@ -79,6 +79,8 @@ const container = document.querySelector('.container');
 const stop = document.querySelector('.stop');
 const play = document.querySelector('.play');
 const reverse = document.querySelector('.reverse');
+const stato = document.querySelector('.stato');
+const domStato = document.querySelectorAll('.stato-elem');
 
 //dichiaro quale slide[i] deve avere la class 'active'
 let slideAttivaIndex = 0;
@@ -192,11 +194,17 @@ function autoplayNext() {
 
 let myFnNext;
 let autoplayActive = false;
+let varStato = '';
 play.addEventListener('click', function () {
   //condizione per non far attivare una seconda volta il setInterval
   if (!autoplayActive) {
+    clearInterval(autoplay);
     myFnNext = setInterval(autoplayNext, 3_000);
     autoplayActive = true;
+    varStato = 'play';
+    domStato[0].classList.remove('stato-active');
+    domStato[2].classList.remove('stato-active');
+    domStato[1].classList.add('stato-active');
     console.log('Avviato autoplay');
   } else {
     console.log('Non puoi cliccare di nuovo!');
@@ -208,11 +216,17 @@ reverse.addEventListener('click', function () {
     myFnNext = setInterval(fnPrev, 3_000);
     autoplayActive = true;
     console.log('Avviato reverse');
+    domStato[0].classList.remove('stato-active');
+    domStato[1].classList.remove('stato-active');
+    domStato[2].classList.add('stato-active');
   } else {
     console.log('Non puoi cliccare di nuovo!');
   }
 });
 stop.addEventListener('click', function () {
+  domStato[1].classList.remove('stato-active');
+  domStato[2].classList.remove('stato-active');
+  domStato[0].classList.add('stato-active');
   console.log('Autoplay STOP');
   autoplayActive = false;
   clearInterval(myFnNext);
